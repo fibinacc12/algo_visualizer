@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:algo_visualizer/src/home/data/data_source/local/algo_categories.dart';
+import 'package:algo_visualizer/src/home/data/model/algo_category.dart';
+import 'package:algo_visualizer/src/home/presentation/views/algo_category_algos.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -47,18 +49,26 @@ class _HomeViewState extends State<HomeView> {
           ),
           itemCount: categories.length,
           itemBuilder: (BuildContext context, int index) {
-            return Container(
-              margin: const EdgeInsetsDirectional.all(5),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors
-                          .primaries[Random().nextInt(Colors.primaries.length)]
-                      [Random().nextInt(9) * 100]),
-              child: Center(
-                  child: Text(
-                categories[index].label,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              )),
+            return InkWell(
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(
+                    CategoryAlgos.routeName,
+                    arguments: categories[index]);
+              },
+              child: Container(
+                margin: const EdgeInsetsDirectional.all(5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.primaries[
+                            Random().nextInt(Colors.primaries.length)]
+                        [Random().nextInt(9) * 100]),
+                child: Center(
+                    child: Text(
+                  categories[index].label,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                )),
+              ),
             );
           }),
     );
