@@ -1,5 +1,7 @@
+import 'package:algo_visualizer/src/home/data/model/algo.dart';
 import 'package:algo_visualizer/src/home/data/model/algo_category.dart';
 import 'package:algo_visualizer/src/home/presentation/views/algo_category_algos.dart';
+import 'package:algo_visualizer/src/home/presentation/views/algo_details.dart';
 import 'package:algo_visualizer/src/home/presentation/views/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -75,6 +77,8 @@ class MyApp extends StatelessWidget {
                     return const HomeView();
                   case CategoryAlgos.routeName:
                     return CategoryAlgos(category: data as AlgoCategory);
+                  case AlgoDetails.routeName:
+                    return AlgoDetails(algorithm: data as Algorithm);
                   default:
                     return const HomeView();
                 }

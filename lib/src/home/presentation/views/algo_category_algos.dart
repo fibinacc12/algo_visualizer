@@ -1,8 +1,12 @@
 import 'package:algo_visualizer/src/home/data/model/algo.dart';
 import 'package:algo_visualizer/src/home/data/model/algo_category.dart';
+import 'package:algo_visualizer/src/home/presentation/views/algo_details.dart';
 import 'package:flutter/material.dart';
 
 import 'package:algo_visualizer/src/home/data/data_source/local/algo_categories.dart';
+
+import '../widgets/card.dart';
+import '../widgets/header.dart';
 
 class CategoryAlgos extends StatefulWidget {
   final AlgoCategory category;
@@ -40,35 +44,33 @@ class _CategoryAlgosState extends State<CategoryAlgos> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0xff252429),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: IconButton(icon: const Icon(Icons.arrow_back_rounded), color: Colors.black, onPressed: () {
-            Navigator.of(context).pop(true);
-          },),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            },
+          ),
         ),
         body: Padding(
           padding: const EdgeInsetsDirectional.all(15),
           child: Column(
             children: [
-              Container(
-                height: MediaQuery.of(context).size.height * .2,
-                decoration: const BoxDecoration(),
-                child: Center(
-                  child: Text(
-                    widget.category.label,
-                    style: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
+              headerWidget(context, widget.category),
+              const SizedBox(height: 10),
               Expanded(
                 child: ListView.builder(
                   itemCount: algorithms.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(algorithms[index].label),
-                    );
+                    return algoCard(context, index, algorithms, () {
+                      Navigator.of(context).pushReplacementNamed(
+                          AlgoDetails.routeName,
+                          arguments: algorithms[index]);
+                    });
                   },
                 ),
               ),
